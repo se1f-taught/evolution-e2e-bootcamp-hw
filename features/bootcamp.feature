@@ -2,10 +2,11 @@
 Feature: Bootcamp E2E
 
     Background: Home page setup
-        Given I open the page and close the appearing promo banner
+        Given I open the page
+        Then I refresh the page to close the promo banner
 
     Scenario: Search bar
-        Given I entry the word Windows in the search bar top middle
+        Given I entry in the search bar the word "Windows"
         When I click the search
         Then I check that at least one item appears
 

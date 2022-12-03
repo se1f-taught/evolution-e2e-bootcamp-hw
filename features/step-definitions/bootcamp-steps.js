@@ -1,26 +1,27 @@
 const { Given, When, Then } = require("@wdio/cucumber-framework");
 
-Given("I open the page and close the appearing promo banner", async () => {
+Given("I open the page", async () => {
   await browser.url("https://www.newegg.com/");
+});
+
+Then("I refresh the page to close the promo banner", async () => {
   try {
-    const elem = await $(".modal-Website-img");
-    await elem.waitForDisplayed({ timeout: 4000 });
+    await $(".modal-Website-img");
     await browser.refresh();
   } catch (error) {
     console.error(error);
   }
 });
 
-Given("I entry the word Windows in the search bar top middle", async () => {
+Given("I entry in the search bar the word {string}", async (word) => {
   const input = await $('[title="Search Site"]');
-  await input.setValue("Windows");
-  console.log(await input.getValue());
+  await input.setValue(word);
 });
 
 When("I click the search", async () => {
   const button = await $(".header2021-search-button");
   await button.click();
-  await browser.pause(5000);
+  await button.waitForDisplayed({ timeout: 4000 });
 });
 
 Then("I check that at least one item appears", async () => {
@@ -30,6 +31,7 @@ Then("I check that at least one item appears", async () => {
 
 Given("I open Today's Best Deals tab", async () => {
   const elem = await $(".header2021-portal");
+  await elem.click();
   await elem.waitForDisplayed({ timeout: 4000 });
 });
 
